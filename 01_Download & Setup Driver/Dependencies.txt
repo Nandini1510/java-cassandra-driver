@@ -1,5 +1,5 @@
 After creating a maven project, add the following dependencies and plugins to the pom.xml file.
-NOTE: replace YOUR_MAIN_CLASS_NAME with the name of the main class
+NOTE: replace YOUR_MAIN_CLASS_NAME with the name of the main class(in line:28)
 <build>
 		<plugins>
 			<plugin>
