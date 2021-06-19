@@ -1,2 +1,2 @@
 Java driver is downloaded through maven dependencies.
-Use the dependencies and plugins from the text file and add it to the pom.xml of your maven project
+Use the dependencies.txt file contents to pom.xml file of your maven project in Netbeans(Replace YOUR_MAIN_CLASS_NAME in line :28 with the name of your main class)
