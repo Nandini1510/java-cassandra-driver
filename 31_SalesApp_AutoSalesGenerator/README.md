@@ -2,6 +2,7 @@ Configure Cassandra Cluster Connection
 cassConnectionManager.java Java program to configure connection to Cassandra Cluster.
 
 Apache Cassandra CQL Commands
+
 01_cassandra_sales_keyspace.cql Apache Cassandra CQL commands to create sales keyspace.
 
 02_sales_create_tables.cql Apache Cassandra CQL commands to create tables in sales keyspace.
