@@ -1,5 +1,5 @@
 -- create a keyspace for python cassandra-driver demos
-CREATE KEYSPACE cassdemo WITH replication = {'class': 'NetworkTopologyStrategy', 'east_dc': '2', 'west_dc': '2'} ;
+CREATE KEYSPACE cassdemo WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '3'}  AND durable_writes = true;
 
 -- if authentication is enabled on cassandra
 CREATE ROLE demo_user WITH SUPERUSER = false AND LOGIN = true AND PASSWORD = 'PassCode' ;
