@@ -56,7 +56,7 @@ public class SalesApp_GenerateOrders {
         for (int var_orders = 1; var_orders <= orders_count; var_orders++) {
 
             //retrieving user details
-            BoundStatement cql_stmt = cql_user_stmt.bind((long) new Random().nextInt(var_users_count - 1) + 1);
+            BoundStatement cql_stmt = cql_user_stmt.bind((long) new Random().nextInt(var_users_count - 1) + 1).setConsistencyLevel(CASS_READ_CONSISTENCY);
             ResultSet user_output = session.execute(cql_stmt);
             Row cass_row = user_output.one();
             if (cass_row == null) {
@@ -85,7 +85,7 @@ public class SalesApp_GenerateOrders {
             for (int var_order_products = 1; var_order_products < product_count; var_order_products++) {
                 
                 //retrieving product details
-                cql_stmt = cql_product_stmt.bind((long) new Random().nextInt(var_products_count - 1) + 1);
+                cql_stmt = cql_product_stmt.bind((long) new Random().nextInt(var_products_count - 1) + 1).setConsistencyLevel(CASS_READ_CONSISTENCY);
                 ResultSet product_output = session.execute(cql_stmt);
                 cass_row = product_output.one();
                 if (cass_row == null) {
@@ -107,10 +107,10 @@ public class SalesApp_GenerateOrders {
                 //checking if we have enough product on-hand
                 if (var_product_qoh > (var_product_sold_quantity + 50)) {
                     //inserting into order_products table
-                    cql_stmt = cql_order_products_insert.bind(var_order_date, var_order_code, var_product_id, var_product_category, var_product_code, var_product_name, var_product_price, var_product_price_total, var_product_sold_quantity);
+                    cql_stmt = cql_order_products_insert.bind(var_order_date, var_order_code, var_product_id, var_product_category, var_product_code, var_product_name, var_product_price, var_product_price_total, var_product_sold_quantity).setConsistencyLevel(CASS_WRITE_CONSISTENCY);
                     session.execute(cql_stmt);
                     //updating product quantity and inserting into product table
-                    cql_stmt = cql_product_qoh_insert.bind(var_product_id, var_product_qoh - var_product_sold_quantity);
+                    cql_stmt = cql_product_qoh_insert.bind(var_product_id, var_product_qoh - var_product_sold_quantity).setConsistencyLevel(CASS_WRITE_CONSISTENCY);
                     session.execute(cql_stmt);
                     var_order_number_of_products = var_order_number_of_products + 1;
                     var_order_total = BigDecimal.valueOf(var_order_total.floatValue() + var_product_price_total.floatValue());
@@ -121,7 +121,7 @@ public class SalesApp_GenerateOrders {
 
             if (var_order_number_of_products > 0) {
                 //inserting into orders table only when number of products ordered is more than zero
-                cql_stmt = cql_order_insert.bind(var_order_date, var_order_date_hour, var_order_timestamp, var_order_code, var_order_discount_percent, var_order_estimated_shipping_date, var_order_grand_total, var_order_number_of_products, var_order_total, var_user_email_id, var_user_id, var_user_name, var_user_phone_number, var_user_platform, var_user_state_code);
+                cql_stmt = cql_order_insert.bind(var_order_date, var_order_date_hour, var_order_timestamp, var_order_code, var_order_discount_percent, var_order_estimated_shipping_date, var_order_grand_total, var_order_number_of_products, var_order_total, var_user_email_id, var_user_id, var_user_name, var_user_phone_number, var_user_platform, var_user_state_code).setConsistencyLevel(CASS_WRITE_CONSISTENCY);
                 session.execute(cql_stmt);
                 v_number_of_orders = v_number_of_orders + 1;
             }
