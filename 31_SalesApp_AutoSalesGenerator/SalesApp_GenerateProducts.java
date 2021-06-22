@@ -44,6 +44,7 @@ public class SalesApp_GenerateProducts {
                 int id = new Random().nextInt(20 - 1) + 1;
                 
                 BoundStatement bound = cql_prdcat_stmt.bind(id);
+                bound.setConsistencyLevel(CASS_READ_CONSISTENCY);
                 ResultSet rs = session.execute(bound);
                 Row cass_row = rs.one();
                 String var_product_category = "";
@@ -80,8 +81,10 @@ public class SalesApp_GenerateProducts {
                 long var_product_qoh = new Random().nextInt(5555 - 555) + 555;
                 
                 //inserting data into products table
-                session.execute(cql_product_insert.bind((long) var_product_id, var_product_code, var_product_name,
-                        var_product_description, var_product_category, var_product_price.setScale(2, RoundingMode.UP), var_product_qoh));
+                bound=cql_product_insert.bind((long) var_product_id, var_product_code, var_product_name,
+                        var_product_description, var_product_category, var_product_price.setScale(2, RoundingMode.UP), var_product_qoh);
+                bound.setConsistencyLevel(CASS_WRITE_CONSISTENCY);
+                session.execute(bound);
                 v_number_of_products = var_product_id;
             }
         } catch (Exception e) {
