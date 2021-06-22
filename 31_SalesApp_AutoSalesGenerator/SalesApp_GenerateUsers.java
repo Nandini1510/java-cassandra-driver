@@ -43,7 +43,7 @@ public class SalesApp_GenerateUsers {
                 //generate a random id and pick random vales from lookup tables
                 int id = new Random().nextInt(10 - 1) + 1;
 
-                ResultSet email_output = session.execute(cql_email_stmt.bind(id));
+                ResultSet email_output = session.execute(cql_email_stmt.bind(id).setConsistencyLevel(CASS_READ_CONSISTENCY));
                 Row cass_row = email_output.one();
                 String var_email_server = "";
                 if (cass_row != null) {
@@ -55,7 +55,7 @@ public class SalesApp_GenerateUsers {
                 }
                 
                 id = new Random().nextInt(51 - 1) + 1;
-                ResultSet state_output = session.execute(cql_state_stmt.bind(id));
+                ResultSet state_output = session.execute(cql_state_stmt.bind(id).setConsistencyLevel(CASS_READ_CONSISTENCY));
                 cass_row = state_output.one();
                 String var_state_code = "";
                 if (cass_row != null) {
@@ -67,7 +67,7 @@ public class SalesApp_GenerateUsers {
                 }
                 
                 id = new Random().nextInt(10 - 1) + 1;
-                ResultSet platform_output = session.execute(cql_platform_stmt.bind(id));
+                ResultSet platform_output = session.execute(cql_platform_stmt.bind(id).setConsistencyLevel(CASS_READ_CONSISTENCY));
                 cass_row = platform_output.one();
                 String var_platform = "";
                 if (cass_row != null) {
@@ -86,7 +86,7 @@ public class SalesApp_GenerateUsers {
                 
                 //inserting data into the user tables
                 session.execute(cql_user_insert.bind((long) user_id, var_user_name, var_user_email_id,
-                        var_state_code, var_user_phone_number, var_platform));
+                        var_state_code, var_user_phone_number, var_platform).setConsistencyLevel(CASS_WRITE_CONSISTENCY));
                 v_number_of_users = user_id;
             }  //end of for loop
 
