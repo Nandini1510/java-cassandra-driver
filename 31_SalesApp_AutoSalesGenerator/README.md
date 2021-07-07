@@ -22,7 +22,7 @@ executable jar file to run on command prompt
 
 to run the jar file execute the following command on command prompt:
 
-java -jar uber-SalesApp_GenerateUsers-1.0-SNAPSHOT.jar com.mycompany.salesapp_generateusers
+java -jar uber-SalesApp_GenerateUsers-1.0-SNAPSHOT.jar com.mycompany.salesapp_generateusers 15
 
 SalesApp_GenerateProducts.java Generates Products. Typically executed only 1 time during initial setup. 
 
@@ -34,7 +34,7 @@ executable jar file to run on command prompt
 
 to run the jar file execute the following command on command prompt:
 
-java -jar uber-SalesApp_GenerateProducts-1.0-SNAPSHOT.jar com.mycompany.salesapp_generateproducts
+java -jar uber-SalesApp_GenerateProducts-1.0-SNAPSHOT.jar com.mycompany.salesapp_generateproducts 18
 
 SalesApp_GenerateOrders.java Generates Orders. Execute it whenever you want to generate Orders 
 
