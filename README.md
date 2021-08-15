@@ -7,3 +7,6 @@ Java code provided here has been tested on Java 1.8.
 
 Note : Java cassandra-driver is compatible with Apache Cassandra 2.1+ / DataStax Enterprise 4.7+
 
+
+
+Video explanation:https://www.youtube.com/watch?v=HYdurnyVMAE
