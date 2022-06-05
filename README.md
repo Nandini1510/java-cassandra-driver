@@ -9,4 +9,4 @@ Note : Java cassandra-driver is compatible with Apache Cassandra 2.1+ / DataStax
 
 
 
-Video explanation:https://www.youtube.com/watch?v=HYdurnyVMAE
+
